@@ -548,6 +548,8 @@ Players::iterator SV_RemoveDisconnectedPlayer(Players::iterator it)
 
 	int player_id = it->id;
 
+	P_LeavesGame(&(*it));
+
 	// remove player awareness from all actors
 	AActor* mo;
 	TThinkerIterator<AActor> iterator;
@@ -2029,7 +2031,7 @@ void SV_ConnectClient()
 	}
 
 	SV_BroadcastUserInfo(*player);
-	player->playerstate = PST_REBORN;
+	player->playerstate = PST_ENTER;
 
 	player->fragcount = 0;
 	player->killcount = 0;
@@ -3621,7 +3623,6 @@ void SV_SetPlayerSpec(player_t &player, bool setting, bool silent)
 		if ((level.time > player.joinafterspectatortime + TICRATE * 3) ||
 			level.time > player.joinafterspectatortime + TICRATE * 5)
 		{
-
 			// Check to see if there is an empty spot on the server
 			int NumPlayers = 0;
 			for (Players::iterator it = players.begin(); it != players.end(); ++it)
@@ -3686,6 +3687,8 @@ void SV_SetPlayerSpec(player_t &player, bool setting, bool silent)
 	}
 	else if (setting && !player.spectator)
 	{
+		P_LeavesGame(&player);
+
 		// We want to spectate the player
 		for (Players::iterator it = players.begin(); it != players.end(); ++it)
 		{
