@@ -1172,6 +1172,7 @@ void G_InitLevelLocals()
 		strncpy(level.skypic, "SKY1", 8);
 		strncpy(level.skypic2, "SKY1", 8);
 		level.flags = 0;
+		level.odamexflags = 0;
 		level.levelnum = 1;
 	}
 	
