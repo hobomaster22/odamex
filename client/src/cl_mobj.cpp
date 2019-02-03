@@ -155,10 +155,8 @@ void P_SpawnPlayer(player_t& player, mapthing2_t* mthing)
 	// [BC] Do script stuff
 	if (serverside && level.behavior)
 	{
-		if (playerstate == PST_ENTER)
+		if (playerstate == PST_ENTER || playerstate == PST_REBORN)
 			level.behavior->StartTypedScripts(SCRIPT_Enter, player.mo);
-		else if (playerstate == PST_REBORN) //if singleplayer do we ever want to execute respawn??
-			level.behavior->StartTypedScripts(SCRIPT_Respawn, player.mo);
 	}
 }
 
