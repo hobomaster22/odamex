@@ -91,7 +91,7 @@ extern int mapchange;
 
 bool step_mode = false;
 
-std::queue<byte> free_player_ids;
+std::set<byte> free_player_ids;
 
 // General server settings
 EXTERN_CVAR(sv_motd)
@@ -484,21 +484,18 @@ Players::iterator SV_GetFreeClient(void)
 	if (players.size() >= sv_maxclients)
 		return players.end();
 
-	if (players.empty())
+	if (free_player_ids.empty())
 	{
-		while (!free_player_ids.empty())
-			free_player_ids.pop();
-
 		// list of free ids needs to be initialized
 		for (int i = 1; i < MAXPLAYERS; i++)
-			free_player_ids.push(i);
+			free_player_ids.insert(i);
 	}
 
 	players.push_back(player_t());
 
 	// generate player id
-	players.back().id = free_player_ids.front();
-	free_player_ids.pop();
+	players.back().id = *free_player_ids.begin();
+	free_player_ids.erase(players.back().id);
 
 	// update tracking cvar
 	sv_clientcount.ForceSet(players.size());
@@ -575,7 +572,7 @@ Players::iterator SV_RemoveDisconnectedPlayer(Players::iterator it)
 	// remove this player from the global players vector
 	Players::iterator next;
 	next = players.erase(it);
-	free_player_ids.push(player_id);
+	free_player_ids.insert(player_id);
 
 	Unlag::getInstance().unregisterPlayer(player_id);
 
