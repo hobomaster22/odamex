@@ -1951,7 +1951,7 @@ EXTERN_CVAR (sv_fragexitswitch)
 
 BOOL CheckIfExitIsGood (AActor *self)
 {
-	if (self == NULL)
+	if (self == NULL || !serverside)
 		return false;
 
 	// [Toke - dmflags] Old location of DF_NO_EXIT
