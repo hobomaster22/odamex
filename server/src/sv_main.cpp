@@ -3660,7 +3660,7 @@ void SV_SetPlayerSpec(player_t &player, bool setting, bool silent)
 			if (player.mo)
 				P_KillMobj(NULL, player.mo, NULL, true);
 
-			player.playerstate = PST_REBORN;
+			player.playerstate = PST_ENTER;
 
 			if (!silent)
 			{
