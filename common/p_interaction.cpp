@@ -1521,7 +1521,7 @@ void P_LeavesGame(player_s* player)
 {
 	if (level.behavior != NULL)
 	{
-		level.behavior->StartTypedScripts(SCRIPT_Disconnect, player->mo, GetPlayerIndex(player));
+		level.behavior->StartTypedScripts(SCRIPT_Disconnect, player->mo, GetPlayerNumber(player));
 	}
 }
 

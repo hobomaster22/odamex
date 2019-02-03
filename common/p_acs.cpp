@@ -3059,7 +3059,7 @@ void DLevelScript::RunScript ()
 			}
 			else
 			{
-				PushToStack(GetPlayerIndex(activator->player));
+				PushToStack(GetPlayerNumber(activator->player));
 			}
 			break;
 

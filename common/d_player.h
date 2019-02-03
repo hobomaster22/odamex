@@ -388,7 +388,7 @@ player_t		&idplayer(byte id);
 player_t		&nameplayer(const std::string &netname);
 bool			validplayer(player_t &ref);
 
-static inline int GetPlayerIndex(player_s* player)
+static inline int GetPlayerNumber(player_s* player)
 {
 	return player->id - 1;
 }
