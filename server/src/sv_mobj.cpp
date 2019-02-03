@@ -144,7 +144,7 @@ void P_SpawnPlayer(player_t& player, mapthing2_t* mthing)
 		P_TeleportMove(mobj, mobj->x, mobj->y, mobj->z, true);
 
 		// [BC] Do script stuff
-		if (level.behavior)
+		if (level.behavior && !player.spectator)
 		{
 			if (playerstate == PST_ENTER)
 				level.behavior->StartTypedScripts(SCRIPT_Enter, player.mo);
